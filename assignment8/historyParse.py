@@ -30,7 +30,7 @@ print('Total Downloads: '+str(cur.fetchone()[0]))
 
 cur.execute('SELECT * FROM "main"."downloads";')
 downloads = cur.fetchall()
-print(downloads)
+#print(downloads)
 
 cur.execute('SELECT COUNT (DISTINCT term) FROM "main"."keyword_search_terms"')
 print('Unique Search Terms: '+ str(cur.fetchone()[0]))
