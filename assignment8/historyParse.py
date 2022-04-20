@@ -17,6 +17,7 @@ except IOError:
     exit()
 try:
     s = sqlite3.connect(history_file)
+    s.row_factory = sqlite3.Row
 except OSError:
     print('Error! - File Not Found!')
     exit()
@@ -29,7 +30,7 @@ cur.execute('SELECT COUNT(*) FROM "main"."downloads"')
 print('Total Downloads: '+str(cur.fetchone()[0]))
 
 cur.execute('SELECT * FROM "main"."downloads";')
-downloads = cur.fetchall()
+downloads = [dict(row) for row in cur.fetchall()]
 #print(downloads)
 
 cur.execute('SELECT COUNT (DISTINCT term) FROM "main"."keyword_search_terms"')
