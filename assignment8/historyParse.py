@@ -10,7 +10,9 @@ if len(sys.argv) == 2:
 else:
     print('Error! - No History File Specified!')
     exit()
-
+if ~(os.path.exists(history_file)):
+  print('Error! - File Not Found!')
+  exit()
 try:
     s = sqlite3.connect(history_file)
 except OSError:
