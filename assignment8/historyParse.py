@@ -31,8 +31,21 @@ print('Total Downloads: '+str(cur.fetchone()[0]))
 
 cur.execute('SELECT * FROM "main"."downloads";')
 downloads = [dict(row) for row in cur.fetchall()]
-#print(downloads)
 
+#make list of dicts from sqlite output
+for item in downloads:
+    item["ttd"]=item.get("end_time") - item.get("start_time")
+biggest = 0
+for item in downloads:
+    if item.get("ttd") > biggest:
+        biggest = item.get("ttd")
+        big_size = item.get("total_bytes")
+        big_name = item.get("target_path")
+
+big_file = big_name.split("\\")
+filename = big_file[len(big_file)-1]
+print("File Name: "+str(filename))
+print("File Size: "+str(big_size))
 cur.execute('SELECT COUNT (DISTINCT term) FROM "main"."keyword_search_terms"')
 print('Unique Search Terms: '+ str(cur.fetchone()[0]))
 
